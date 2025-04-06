@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Appointment Assistant</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      var vapiInstance = null;
+      const assistant = "9f33adc7-01df-4f73-9390-6e3a327c04d9";
+      const apiKey = "67574b3b-5a7a-427a-ad76-d221b27d79c2";
+      
+      const buttonConfig = {
+        position: "center",
+        width: "128px",
+        height: "128px",
+        idle: {
+          color: "rgb(59, 130, 246)",
+          type: "round",
+          icon: "https://unpkg.com/lucide-static@0.321.0/icons/stethoscope.svg"
+        },
+        loading: {
+          color: "rgb(96, 165, 250)",
+          type: "round",
+          icon: "https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg"
+        },
+        active: {
+          color: "rgb(239, 68, 68)",
+          type: "round",
+          icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg"
+        }
+      };
+
+      (function(d, t) {
+        var g = document.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function() {
+          vapiInstance = window.vapiSDK.run({
+            apiKey: apiKey,
+            assistant: assistant,
+            config: buttonConfig,
+          });
+
+          // Event listeners
+          vapiInstance.on('call-start', () => {
+            console.log('Call has started');
+          });
+          vapiInstance.on('call-end', () => {
+            console.log('Call has ended');
+          });
+          vapiInstance.on('error', (e) => {
+            console.error(e);
+          });
+        };
+      })(document, "script");
+    </script>
+  </body>
+</html>
