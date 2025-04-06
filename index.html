@@ -5,8 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medical Appointment Assistant</title>
+    <style>
+      #icon-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh; /* Full viewport height */
+      }
+    </style>
   </head>
   <body>
+    <div id="icon-container"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
@@ -48,6 +57,9 @@
             assistant: assistant,
             config: buttonConfig,
           });
+
+          // Append the button to the container
+          document.getElementById('icon-container').appendChild(vapiInstance.button);
 
           // Event listeners
           vapiInstance.on('call-start', () => {
